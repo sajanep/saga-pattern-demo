@@ -1,0 +1,2 @@
+Add-Migration InitialCreate -StartupProject Stock.Api -Project Stock.Infrastructure
+Update-Database -StartupProject Stock.Api -Project Stock.Infrastructure

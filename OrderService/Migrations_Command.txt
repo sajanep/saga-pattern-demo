@@ -1,0 +1,2 @@
+Add-Migration InitialCreate -StartupProject Order.Api -Project Order.Infrastructure
+Update-Database -StartupProject Order.Api -Project Order.Infrastructure

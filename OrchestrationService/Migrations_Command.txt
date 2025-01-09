@@ -1,0 +1,2 @@
+Add-Migration InitialCreate -StartupProject OrchestrationService -Project OrchestrationService.Infrastructure
+Update-Database -StartupProject OrchestrationService -Project OrchestrationService.Infrastructure
