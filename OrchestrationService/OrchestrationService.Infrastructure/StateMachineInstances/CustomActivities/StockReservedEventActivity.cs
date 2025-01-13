@@ -29,7 +29,7 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances.CustomActivi
                   CorrelationId = context.Message.CorrelationId,
                   OrderItemList = context.Message.OrderItemList,
                   CustomerId = context.Saga.CustomerId,
-                  PaymentAccountId = context.Saga.PaymentAccountId,
+                  PaymentAccountNumber = context.Saga.PaymentAccountNumber,
                   TotalPrice = context.Saga.TotalPrice.GetValueOrDefault(),
               },
               context.CancellationToken).ConfigureAwait(false);

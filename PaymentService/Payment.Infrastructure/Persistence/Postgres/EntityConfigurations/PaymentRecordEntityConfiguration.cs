@@ -26,6 +26,9 @@ namespace Payment.Infrastructure.Persistence.Postgres.EntityConfigurations
             builder.Property(p => p.PaymentDate)
                 .IsRequired();
 
+            builder.Property(p => p.AccountNumber)
+               .IsRequired();
+
             builder.Property(p => p.UserId)
                 .IsRequired();
         }

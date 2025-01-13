@@ -14,7 +14,7 @@ namespace OrchestrationService.Infrastructure.StateMachineMaps
             entity.Property(x => x.TotalPrice);
             entity.Property(x => x.CreatedDate);
             entity.Property(x => x.CustomerId).HasMaxLength(255);
-            entity.Property(x => x.PaymentAccountId).HasMaxLength(255);
+            entity.Property(x => x.PaymentAccountNumber).HasMaxLength(255);
 
             // If using Optimistic concurrency, otherwise remove this property
             // If using Optimistic concurrency, otherwise remove this property

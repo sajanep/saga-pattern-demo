@@ -17,7 +17,7 @@ namespace SharedUtils.Messages
 
         public Guid CorrelationId { get; set; }
         public string CustomerId { get; set; }
-        public string PaymentAccountId { get; set; }
+        public string PaymentAccountNumber { get; set; }
         public decimal TotalPrice { get; set; }
         public List<OrderItem> OrderItemList { get; set; }
     }

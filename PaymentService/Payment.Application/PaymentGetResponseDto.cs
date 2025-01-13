@@ -14,6 +14,8 @@ namespace Payment.Application
 
         public DateTime PaymentDate { get; set; }
 
+        public string AccountNumber{ get; set; }
+
         public string UserId { get; set; } // Foreign key for User (assuming a User table exists)
     }
 }

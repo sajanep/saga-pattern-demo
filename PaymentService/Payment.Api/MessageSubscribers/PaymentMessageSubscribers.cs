@@ -24,7 +24,7 @@ namespace Payment.Api.MessageSubscribers
         [CapSubscribe(TopicNames.CompletePayment)]
         public async Task HandleCompletePaymentMessage(CompletePaymentMessage completePaymentMessage)
         {
-            if(!string.IsNullOrEmpty(completePaymentMessage.CustomerId) && !string.IsNullOrEmpty(completePaymentMessage.PaymentAccountId))
+            if(!string.IsNullOrEmpty(completePaymentMessage.CustomerId) && !string.IsNullOrEmpty(completePaymentMessage.PaymentAccountNumber))
             {
                 if (completePaymentMessage.CustomerId == "test@test.com")
                 {
@@ -39,7 +39,7 @@ namespace Payment.Api.MessageSubscribers
 
                 await _paymentService.ProcessPayment(new PaymentProcessRequestDto()
                 {
-                    PaymentAccountId = completePaymentMessage.PaymentAccountId,
+                    PaymentAccountId = completePaymentMessage.PaymentAccountNumber,
                     UserId = completePaymentMessage.CustomerId,
                     Amount = completePaymentMessage.TotalPrice,
                 });

@@ -7,12 +7,12 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances.CustomActivi
 {
     public class PaymentFailedEventActivity: IStateMachineActivity<OrderSagaState, PaymentFailedEvent>
     {
-        private readonly ITopicProducer<OrderFailedEvent> _orderFailedEventProducer;
-        private readonly ITopicProducer<StockRollBackMessage> _stockRollbackMessageProducer;
+        private readonly ITopicProducer<string, OrderFailedEvent> _orderFailedEventProducer;
+        private readonly ITopicProducer<string, StockRollBackMessage> _stockRollbackMessageProducer;
         private readonly ILogger<PaymentFailedEventActivity> _logger;
 
-        public PaymentFailedEventActivity(ITopicProducer<OrderFailedEvent> orderFailedEventProducer, 
-            ITopicProducer<StockRollBackMessage> stockRollbackMessageProducer,
+        public PaymentFailedEventActivity(ITopicProducer<string, OrderFailedEvent> orderFailedEventProducer, 
+            ITopicProducer<string, StockRollBackMessage> stockRollbackMessageProducer,
             ILogger<PaymentFailedEventActivity> logger) 
         {
             _orderFailedEventProducer = orderFailedEventProducer;
@@ -28,6 +28,7 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances.CustomActivi
         public async Task Execute(BehaviorContext<OrderSagaState, PaymentFailedEvent> context, IBehavior<OrderSagaState, PaymentFailedEvent> next)
         {
             await _orderFailedEventProducer.Produce(
+                context.Message.CorrelationId.ToString(),
                new OrderFailedEvent()
                {
                    CorrelationId = context.Message.CorrelationId,
@@ -39,6 +40,7 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances.CustomActivi
             _logger.LogInformation("OrderFailedEvent published in OrderStateMachine for CorrelationId: {CorrelationId} ", context.Saga.CorrelationId);
 
             await _stockRollbackMessageProducer.Produce(
+                context.Message.CorrelationId.ToString(),
                new StockRollBackMessage()
                {
                    CorrelationId = context.Message.CorrelationId,

@@ -11,7 +11,9 @@ namespace Payment.Domain.Entities
     public class PaymentRecord
     {
         public int Id { get; set; }
-        
+
+        public string AccountNumber { get; set; }
+
         public decimal Amount { get; set; }
         
         public DateTime PaymentDate { get; set; }

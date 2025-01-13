@@ -14,6 +14,9 @@ namespace SharedUtils.IntegrationEvents
         {
             OrderItemList = new List<OrderItem>();
         }
+
+        public int OrderId { get; set; }
+
         public List<OrderItem> OrderItemList { get; set; }
     }
 }

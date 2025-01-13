@@ -11,18 +11,21 @@ using SharedUtils.Messages;
 
 namespace Order.Application
 {
-    public class OrderService:IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IRepository<OrderEntity> _orderRepository;
         private readonly ICapPublisher _capPublisher;
         private readonly ILogger<OrderService> _logger;
 
-        public OrderService(IRepository<OrderEntity> orderRepository, ICapPublisher capPublisher) 
+        public OrderService(IRepository<OrderEntity> orderRepository,
+            ICapPublisher capPublisher,
+            ILogger<OrderService> logger)
         {
             _orderRepository = orderRepository;
             _capPublisher = capPublisher;
+            _logger = logger;
         }
-       
+
         public async Task<int> CreateOrder(CreateOrderDto createOrderDto)
         {
             var newOrder = new OrderEntity
@@ -74,7 +77,7 @@ namespace Order.Application
                 orderDto.OrderItemList = orderEntity.OrderItemList.Select(item => new OrderItemDto
                 {
                     Price = item.Price,
-                    ProductId= item.ProductId,
+                    ProductId = item.ProductId,
                     Count = item.Count,
 
                 }).ToList();
@@ -82,18 +85,22 @@ namespace Order.Application
             return orderDto;
         }
 
-        public async Task UpdateOrderStatus(OrderStatusDto orderStatusDto, string customerId)
+        public async Task UpdateOrder(UpdateOrderDto updateOrderDto)
         {
-            var orderEntity = (await _orderRepository.GetAsync(x => x.CustomerId == customerId)).FirstOrDefault();
+            var orderEntity = (await _orderRepository.GetAsync(x => x.Id == updateOrderDto.Id)).FirstOrDefault();
             if (orderEntity != null)
             {
-                orderEntity.Status = OrderStatusMapper.ToDomain(orderStatusDto);
+                orderEntity.Status = OrderStatusMapper.ToDomain(updateOrderDto.Status);
+                if (!string.IsNullOrEmpty(updateOrderDto.ErrorMessage))
+                {
+                    orderEntity.ErrorMessage = updateOrderDto.ErrorMessage;
+                }
                 _orderRepository.Update(orderEntity);
                 await _orderRepository.SaveChangesAsync();
             }
             else
             {
-                _logger.LogError("Order not found for the customer id {customerId}", customerId);
+                _logger.LogError("Order not found for the order id {order id}", updateOrderDto.Id);
             }
         }
     }

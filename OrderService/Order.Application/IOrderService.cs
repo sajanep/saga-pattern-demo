@@ -13,8 +13,6 @@ namespace Order.Application
 
         Task<GetOrderDto> GetOrder(int id);
 
-        Task UpdateOrderStatus(OrderStatusDto orderStatusDto, string customerId);
-
-        //Task UpdateOrder(string userId, string paymentReference);
+        Task UpdateOrder(UpdateOrderDto updateOrderDto); 
     }
 }

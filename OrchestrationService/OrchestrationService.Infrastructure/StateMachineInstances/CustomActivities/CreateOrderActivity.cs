@@ -28,7 +28,8 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances.CustomActivi
               new OrderCreatedEvent()
               {
                   CorrelationId = context.Message.CorrelationId,
-                  OrderItemList = context.Message.OrderItemList,
+                  OrderId = context.Message.OrderId,
+                  OrderItemList = context.Message.OrderItemList
               },
               context.CancellationToken).ConfigureAwait(false);
             _logger.LogInformation("OrderCreatedEvent published in OrderStateMachine for CorrelationId: {CorrelationId} ", context.Saga.CorrelationId);

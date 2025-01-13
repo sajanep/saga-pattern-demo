@@ -18,7 +18,7 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances
 
         public string? CustomerId { get; set; }
 
-        public string? PaymentAccountId { get; set; }
+        public string? PaymentAccountNumber { get; set; }
 
         public decimal? TotalPrice { get; set; }
 

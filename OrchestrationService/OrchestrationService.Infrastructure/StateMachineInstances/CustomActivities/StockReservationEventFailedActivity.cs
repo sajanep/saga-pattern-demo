@@ -26,6 +26,7 @@ namespace OrchestrationService.Infrastructure.StateMachineInstances.CustomActivi
             await _producer.Produce(context.Message.CorrelationId.ToString(),
              new OrderFailedEvent()
              {
+                 OrderId = context.Saga.OrderId.GetValueOrDefault(),
                  CorrelationId = context.Message.CorrelationId,
                  CustomerId = context.Saga.CustomerId,
                  ErrorMessage = context.Message.ErrorMessage,

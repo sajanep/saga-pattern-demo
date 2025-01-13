@@ -44,7 +44,7 @@ namespace OrchestrationService.Infrastructure.StateMachines
                    context.Saga.CustomerId = context.Message.CustomerId;
                    context.Saga.OrderId = context.Message.OrderId;
                    context.Saga.CreatedDate = DateTime.UtcNow;
-                   context.Saga.PaymentAccountId = context.Message.PaymentAccountId;
+                   context.Saga.PaymentAccountNumber = context.Message.PaymentAccountId;
                    context.Saga.TotalPrice = context.Message.TotalPrice;
                })
                .Activity(x => x.OfType<CreateOrderActivity>())

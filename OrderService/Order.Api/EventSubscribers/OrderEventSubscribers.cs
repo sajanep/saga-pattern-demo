@@ -1,6 +1,7 @@
 ﻿using DotNetCore.CAP;
 using Microsoft.EntityFrameworkCore;
 using Order.Application;
+using Order.Application.Dtos;
 using Order.Domain.Entities;
 using SharedUtils;
 using SharedUtils.IntegrationEvents;
@@ -23,7 +24,11 @@ namespace Order.Api.EventSubscribers
         {
             if(string.IsNullOrEmpty(orderCompletedEvent.CustomerId)) 
                 return;
-            await _orderService.UpdateOrderStatus(Application.Dtos.OrderStatusDto.Complete, orderCompletedEvent.CustomerId);
+            await _orderService.UpdateOrder(new UpdateOrderDto()
+            {
+                Id = orderCompletedEvent.OrderId,
+                Status = OrderStatusDto.Complete
+            });
             _logger.LogInformation("Order with Id: {MessageOrderId} completed successfully", orderCompletedEvent.OrderId);
         }
 
@@ -32,7 +37,12 @@ namespace Order.Api.EventSubscribers
         {
             if (string.IsNullOrEmpty(orderFailedEvent.CustomerId))
                 return;
-            await _orderService.UpdateOrderStatus(Application.Dtos.OrderStatusDto.Fail, orderFailedEvent.CustomerId);
+            await _orderService.UpdateOrder(new UpdateOrderDto()
+            {
+                Id = orderFailedEvent.OrderId,
+                Status = OrderStatusDto.Fail,
+                ErrorMessage = orderFailedEvent.ErrorMessage
+            });
             _logger.LogInformation("Order with Id: {MessageOrderId} completed successfully", orderFailedEvent.OrderId);
         }
     }

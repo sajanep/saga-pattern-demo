@@ -19,6 +19,7 @@ namespace Payment.Application
             record.PaymentDate = DateTime.UtcNow;
             record.UserId = paymentRequestDto.UserId;
             record.Amount = paymentRequestDto.Amount;
+            record.AccountNumber = paymentRequestDto.PaymentAccountId;
 
             _dbContext.PaymentRecords.Add(record);
             await _dbContext.SaveChangesAsync();
@@ -39,6 +40,7 @@ namespace Payment.Application
                         Id = paymentRecord.Id,
                         PaymentDate = paymentRecord.PaymentDate,
                         UserId = paymentRecord.UserId,
+                        AccountNumber = paymentRecord.AccountNumber,
                         Amount = paymentRecord.Amount,
                     };
                     paymentGetResponses.Add(paymentGetResponse);
