@@ -17,7 +17,10 @@ Handles the payment related activities.
 Hosts an orchestration service for Create Order workflow by leveraging MassTransit Saga State Machine(https://masstransit.io/documentation/patterns/saga/state-machine).
 
 ## Happy Path Flow
+![Happy Path](images/Design-Happy_Path.jpg)
 
 ## Stock Reservation Failed Flow
+![Stock Reservation Failed](images/Design-StockReservationFailed_Flow.jpg)
 
 ## Payment Failed Flow
+![Payment Failed](images/Design-PaymentFailed_Flow.jpg)
