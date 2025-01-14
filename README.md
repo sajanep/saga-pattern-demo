@@ -2,7 +2,7 @@
 Demonstrates micro service orchestration using saga pattern via MassTransit. Leverages Kafka as message broker. Participating services uses cap library(https://cap.dotnetcore.xyz/) to connect with Kafka and orchestration service uses MassTransit Kafka Rider(https://masstransit.io/documentation/transports/kafka).
 
 ## Overview
-There are 4 services paricipating in this solution.
+There are 4 services participating in this solution.
 
 #### 1) Order Service
 Initiate the order and triggers the flow by sending CreateOrder message.
